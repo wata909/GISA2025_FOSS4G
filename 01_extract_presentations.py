@@ -232,7 +232,7 @@ def main():
         print_gis_society_statistics(all_stats)
         
         # JSON出力
-        output_file = base_path / 'gis_society_analysis.json'
+        output_file = base_path / 'presentations_data.json'
         with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(all_stats, f, ensure_ascii=False, indent=2)
         print(f"\n✅ GIS学会向け分析データを {output_file} に保存しました")

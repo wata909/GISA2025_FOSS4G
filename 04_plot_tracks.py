@@ -20,10 +20,13 @@ plt.rcParams['font.sans-serif'] = ['Hiragino Sans', 'Hiragino Kaku Gothic ProN',
 plt.rcParams['font.family'] = 'sans-serif'
 plt.rcParams['axes.unicode_minus'] = False
 
-def load_gis_society_data():
-    """GIS学会向けデータを読み込む"""
-    json_file = Path(__file__).parent / 'gis_society_analysis.json'
-    with open(json_file, 'r', encoding='utf-8') as f:
+def load_data():
+    """データを読み込む"""
+    data_file = Path(__file__).parent / 'presentations_data.json'
+    if not data_file.exists():
+        raise FileNotFoundError(f"データファイルが見つかりません: {data_file}")
+    
+    with open(data_file, 'r', encoding='utf-8') as f:
         return json.load(f)
 
 def plot_academic_vs_practical(stats_list, output_dir):
@@ -293,7 +296,7 @@ def main():
     print()
     
     # データ読み込み
-    stats_list = load_gis_society_data()
+    stats_list = load_data()
     
     # 出力ディレクトリ
     output_dir = Path(__file__).parent / 'graphs'

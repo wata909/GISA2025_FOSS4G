@@ -23,7 +23,7 @@ plt.rcParams['axes.unicode_minus'] = False
 def load_statistics():
     """統計データを読み込む（GIS学会向け正規化済みデータを使用）"""
     # 正規化済みのGIS学会向けデータを使用
-    gis_json = Path(__file__).parent / 'gis_society_analysis.json'
+    gis_json = Path(__file__).parent / 'presentations_data.json'
     if gis_json.exists():
         with open(gis_json, 'r', encoding='utf-8') as f:
             return json.load(f)

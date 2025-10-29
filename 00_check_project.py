@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
 """
-GISA_20251029 完成サマリー
+プロジェクトファイル確認スクリプト
 
-このフォルダには、FOSS4G 2022-2025トレンド分析の全ファイルが含まれています。
-GIS学会FOSS4G特別セッション2025での発表用に最適化されています。
+プロジェクト内のファイルとその状態を確認するユーティリティ。
+- レポート、グラフ、データファイルの存在確認
+- ファイルサイズの表示
+- 主要な分析結果のサマリ表示
+- 使い方のクイックリファレンス
+
+実行: python 00_check_project.py
 """
 
 import os
@@ -24,10 +29,10 @@ def print_summary():
     # 1. レポート
     print("📄 メインレポート")
     print("-" * 80)
-    report_file = base_dir / "GIS_SOCIETY_REPORT.md"
+    report_file = base_dir / "GISA2025_REPORT.md"
     if report_file.exists():
         size = report_file.stat().st_size
-        print(f"  ✓ GIS_SOCIETY_REPORT.md ({size:,} bytes)")
+        print(f"  ✓ GISA2025_REPORT.md ({size:,} bytes)")
         print(f"    - FOSS4G 2022-2025の包括的分析")
         print(f"    - 984発表を対象（開発・実用分野）")
         print(f"    - 8つのグラフを統合")
@@ -64,7 +69,7 @@ def print_summary():
     print("💾 データファイル")
     print("-" * 80)
     data_files = {
-        "gis_society_analysis.json": "GIS学会向け分析データ（984発表）",
+        "presentations_data.json": "プレゼンテーションデータ（984発表、学術トラック除外）",
         "tech_trends_50words.json": "50ワード基準技術トレンド",
         "schedule_2022.xml": "2022年オリジナルスケジュール",
         "schedule_2023.xml": "2023年オリジナルスケジュール",
@@ -83,12 +88,12 @@ def print_summary():
     print("🔧 分析・可視化スクリプト")
     print("-" * 80)
     script_files = {
-        "analyze_gis_society.py": "GIS学会向けデータ抽出・正規化",
-        "analyze_tech_trends_50words.py": "50ワード基準での技術分析",
-        "visualize_statistics.py": "基本統計グラフ生成（01）",
-        "visualize_gis_society.py": "GIS学会向けグラフ生成（02-03）",
-        "visualize_trends_50words.py": "技術トレンドグラフ生成（04-08）",
-        "organize_files.py": "ファイル整理・リネーム",
+        "00_check_project.py": "プロジェクトファイル確認",
+        "01_extract_presentations.py": "XMLから発表データを抽出",
+        "02_analyze_technologies.py": "技術トレンドを分析（50ワード基準）",
+        "03_plot_basic_stats.py": "基本統計グラフ生成（01）",
+        "04_plot_tracks.py": "トラック関連グラフ生成（02-03）",
+        "05_plot_technologies.py": "技術トレンドグラフ生成（04-08）",
     }
     
     for filename, description in script_files.items():
@@ -132,16 +137,16 @@ def print_summary():
     print("🚀 使い方")
     print("-" * 80)
     print("  1. グラフ再生成:")
-    print("     $ python visualize_statistics.py")
-    print("     $ python visualize_gis_society.py")
-    print("     $ python visualize_trends_50words.py")
+    print("     $ python 03_plot_basic_stats.py")
+    print("     $ python 04_plot_tracks.py")
+    print("     $ python 05_plot_technologies.py")
     print()
     print("  2. データ再分析:")
-    print("     $ python analyze_gis_society.py")
-    print("     $ python analyze_tech_trends_50words.py")
+    print("     $ python 01_extract_presentations.py")
+    print("     $ python 02_analyze_technologies.py")
     print()
     print("  3. レポート閲覧:")
-    print("     Markdownビューアで GIS_SOCIETY_REPORT.md を開く")
+    print("     Markdownビューアで GISA2025_REPORT.md を開く")
     print()
     
     # 8. フッター

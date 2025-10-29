@@ -31,7 +31,7 @@
 GISA_20251029/
 ├── README.md                           # このファイル
 ├── requirements.txt                    # Python依存パッケージ一覧
-├── GIS_SOCIETY_REPORT.md               # 📄 分析レポート（メイン成果物）
+├── GISA2025_REPORT.md                  # 📄 分析レポート（メイン成果物）
 │
 ├── 📊 graphs/                          # グラフ画像（レポート掲載順）
 │   ├── 01_presentation_trend.png       # 発表数推移
@@ -50,17 +50,16 @@ GISA_20251029/
 │   └── schedule_2025.xml               # FOSS4G 2025 公式スケジュール
 │
 ├── 📁 データファイル（出力）
-│   ├── gis_society_analysis.json       # GIS学会向け分析データ（984発表）
+│   ├── presentations_data.json         # プレゼンテーションデータ（984発表、学術トラック除外）
 │   └── tech_trends_50words.json        # 50ワード基準技術トレンド
 │
 └── 🐍 Pythonスクリプト
-    ├── analyze_gis_society.py          # データ抽出（アカデミック除外）
-    ├── analyze_tech_trends_50words.py  # 技術トレンド分析（50ワード基準）
-    ├── visualize_statistics.py         # 基本統計グラフ生成
-    ├── visualize_gis_society.py        # GIS学会向けグラフ生成
-    ├── visualize_trends_50words.py     # 技術トレンドグラフ生成
-    ├── organize_files.py               # ファイル整理ユーティリティ
-    └── summary.py                      # サマリ生成
+    ├── 00_check_project.py             # プロジェクトファイル確認
+    ├── 01_extract_presentations.py     # XMLから発表データを抽出
+    ├── 02_analyze_technologies.py      # 技術トレンドを分析（50ワード基準）
+    ├── 03_plot_basic_stats.py          # 基本統計グラフ生成
+    ├── 04_plot_tracks.py               # トラック関連グラフ生成
+    └── 05_plot_technologies.py         # 技術トレンドグラフ生成
 ```
 
 ---
@@ -157,24 +156,31 @@ cd GISA_20251029
 pip install -r requirements.txt
 ```
 
-### 2. データ分析の実行
+### 2. プロジェクトの確認
+
+```bash
+# プロジェクトファイルの状態を確認
+python 00_check_project.py
+```
+
+### 3. データ分析の実行
 
 ```bash
 # ステップ1: XMLデータから分析データを生成
-python analyze_gis_society.py          # → gis_society_analysis.json
-python analyze_tech_trends_50words.py  # → tech_trends_50words.json
+python 01_extract_presentations.py      # → presentations_data.json
+python 02_analyze_technologies.py       # → tech_trends_50words.json
 
 # ステップ2: グラフを生成
-python visualize_statistics.py         # → graphs/01-03
-python visualize_gis_society.py        # → graphs/追加グラフ
-python visualize_trends_50words.py     # → graphs/04-08
+python 03_plot_basic_stats.py           # → graphs/01_presentation_trend.png
+python 04_plot_tracks.py                # → graphs/02-03 (トラック関連)
+python 05_plot_technologies.py          # → graphs/04-08 (技術トレンド)
 ```
 
-### 3. 結果の確認
+### 4. 結果の確認
 
 ```bash
 # レポートを開く
-open GIS_SOCIETY_REPORT.md
+open GISA2025_REPORT.md
 
 # グラフを確認
 open graphs/
@@ -208,6 +214,11 @@ open graphs/
 
 FOSS4G公式サイトから取得したスケジュールXML:
 
+- [FOSS4G 2022 スケジュール](https://talks.osgeo.org/foss4g-2022/schedule/export/schedule.xml)
+- [FOSS4G 2023 スケジュール](https://talks.osgeo.org/foss4g-2023/schedule/export/schedule.xml)
+- [FOSS4G 2024 スケジュール](https://talks.osgeo.org/foss4g-2024/schedule/export/schedule.xml)
+- [FOSS4G 2025 スケジュール](https://talks.osgeo.org/foss4g-2025/schedule/export/schedule.xml)
+
 ```xml
 <schedule>
   <conference>
@@ -228,7 +239,7 @@ FOSS4G公式サイトから取得したスケジュールXML:
 </schedule>
 ```
 
-### 出力1: gis_society_analysis.json
+### 出力1: presentations_data.json
 
 年度別の統計サマリ:
 
@@ -316,7 +327,7 @@ FOSS4G公式サイトから取得したスケジュールXML:
 
 ## 📖 関連ドキュメント
 
-- `GIS_SOCIETY_REPORT.md`: 詳細な分析レポート（メイン成果物）
+- `GISA2025_REPORT.md`: 詳細な分析レポート（メイン成果物）
 - `graphs/`: 8つの可視化グラフ
 - `*.json`: 機械可読な分析結果データ
 

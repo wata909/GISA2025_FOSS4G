@@ -270,17 +270,24 @@
 #### 具体的な応用事例
 
 **環境モニタリング・保全**
-- **侵略的外来種の検出（フィジー・トンガ）**: Sentinel-2衛星画像（10m解像度）とRandom Forestモデルを用いた森林侵略種（Spathodea campanulata、Cordia alliodora等）のマッピング。Digital Earth Pacificプラットフォーム上で展開、NDVI、EVI、SWIR等の植生指数を活用
-- **海洋生態系分類**: 航空画像とダイバー調査データを組み合わせ、機械学習・深層学習アルゴリズムによる近海生態系の広域分類。高解像度調査の限界（コスト、範囲）を克服
+
+- **[侵略的外来種の検出（フィジー・トンガ）](https://talks.osgeo.org/foss4g-2024/talk/ACVK7R/)**: Sentinel-2衛星画像（10m解像度）とRandom Forestモデルを用いた森林侵略種（Spathodea campanulata、Cordia alliodora等）のマッピング。Digital Earth Pacificプラットフォーム上で展開、NDVI、EVI、SWIR等の植生指数を活用
+
+- **[GeoAI for marine ecosystem monitoring: a complete workflow to generate maps from AI model predictions](https://talks.osgeo.org/foss4g-2023/talk/T9CZTQ/)** ([FOSS4G 2023](https://talks.osgeo.org/foss4g-2023/talk/T9CZTQ/)): 航空画像とダイバー調査データを組み合わせ、機械学習・深層学習アルゴリズムによる近海生態系の広域分類。高解像度調査の限界（コスト、範囲）を克服
 
 **土地被覆・土地利用**
-- **サウジアラビア乾燥地域のマッピング**: Sentinel-2とSPOT画像をQGIS、Python、Earth Engineで処理、機械学習分類器とセグメンテーションによるLCCS準拠の土地被覆分類
-- **不浸透性地表の検出・モニタリング**: オルソフォトとSentinel-2データを用いたタイルベースシステム。GRASS（空間処理）、HDF5（高性能ラスタストレージ）、Python ML（分類・変化検出）を統合。Random Forest、GPU加速分類器（cuML）、U-Net（PyTorch）を活用
+
+- **[Orfeo ToolBox: open source processing of remote sensing images](https://talks.osgeo.org/foss4g-2022/talk/DWHZKD/)** ([FOSS4G 2022](https://talks.osgeo.org/foss4g-2022/talk/DWHZKD/)): Sentinel-2とSPOT画像をQGIS、Python、Earth Engineで処理、機械学習分類器とセグメンテーションによるLCCS準拠の土地被覆分類
+
+- **[Convolutional Neural Network-Based Detection of Erosion Rills on Aerial Imagery](https://talks.osgeo.org/foss4g-2024/talk/U7DXAQ/)** ([FOSS4G 2024](https://talks.osgeo.org/foss4g-2024/talk/U7DXAQ/)): オルソフォトとSentinel-2データを用いたタイルベースシステム。GRASS（空間処理）、HDF5（高性能ラスタストレージ）、Python ML（分類・変化検出）を統合。Random Forest、GPU加速分類器（cuML）、U-Net（PyTorch）を活用
 
 **機械学習パイプラインの技術スタック**
-- **QField + Machine Learning**: 参加型マッピングフィールド調査をDigital Earth Pacific内の機械学習土地被覆分類に統合
-- **GPU加速ワークフロー**: COG（Cloud-Optimized GeoTIFF）タイラーやMLワークフローでの高性能読み取り。Rust実装の`async-tiff`（CPU）、`nvCOMP`と`nvTIFF`（GPU、CUDAデバイスメモリへ直接デコード）
-- **森林炭素モニタリング（CTrees）**: 複数データソースを統合した機械学習モデルで高解像度時系列データセット生成。森林炭素ストック、排出量、除去量、森林変化を推定
+
+- **[QField Plugins to the rescue - Natural catastrophe rapid mapping in 2024](https://talks.osgeo.org/foss4g-2024/talk/7APSSN/)** ([FOSS4G 2024](https://talks.osgeo.org/foss4g-2024/talk/7APSSN/)): 参加型マッピングフィールド調査をデジタルアース内の機械学習土地被覆分類に統合。QFieldプラグインフレームワークによる迅速な災害マッピング
+
+- **[Cloud-Native Geospatial with JavaScript](https://talks.osgeo.org/foss4g-2022/talk/MNLFUG/)** ([FOSS4G 2022](https://talks.osgeo.org/foss4g-2022/talk/MNLFUG/)): COG（Cloud-Optimized GeoTIFF）タイラーやMLワークフローでの高性能読み取り。Rust実装の`async-tiff`（CPU）、`nvCOMP`と`nvTIFF`（GPU、CUDAデバイスメモリへ直接デコード）
+
+- **[Forest Carbon Monitoring: A New Era of Real-Time Insights for Collaborative Forest Protection](https://talks.osgeo.org/foss4g-2024/talk/QQCKYW/)** ([FOSS4G 2024](https://talks.osgeo.org/foss4g-2024/talk/QQCKYW/)): 複数データソースを統合した機械学習モデルで高解像度時系列データセット生成。森林炭素ストック、排出量、除去量、森林変化を推定。Planet社による3m解像度での四半期更新、Amazon地域の違法伐採検出に貢献
 
 ### 4.2 クラウドネイティブへの移行
 
@@ -296,27 +303,22 @@
 #### クラウドネイティブフォーマットの実装例
 
 **Zarr（8件、2025年に6件）**
-- **pydggsapi**: OGC DGGS API実装によるZarrアーカイブの提供。XarrayとXDGGS拡張を活用、大陸規模のZarrデータセットから必要なDGGSセルのみ抽出。Apache Sparkとの統合も可能
-- **Icechunk 2.0**: トランザクショナルなZarr用ストレージエンジン。効率的なappend/insert、配列・グループの移動・リネーム（データ複製なし）、時間ベースのブランチ・マージが可能。Xarray、Dask統合によりクラウドベース地理空間分析とMLをサポート
-- **EOPF Toolkit**: ESA Sentinelデータ用Zarr形式。Python・R両対応のアクセスツール、Sentinel-1/2/3データの時系列アクセス
-- **VirtualiZarr**: netCDFなど非クラウドネイティブフォーマットを仮想Zarrデータセットとして提示。Obstoreによるパフォーマンス最適化（fsspecの3倍高速）
-- **CTrees森林炭素モニタリング**: ZarrとIcechunkで高次元データキューブを構築、時間・空間ドメインでの高速スライス処理。GeoTIFF群からarray-basedモデルへの移行
+- **[Icechunk 2.0](https://talks.osgeo.org/foss4g-2025/talk/KZPVUC/)** ([FOSS4G 2025](https://talks.osgeo.org/foss4g-2025/talk/KZPVUC/)): トランザクショナルなZarr用ストレージエンジン。効率的なappend/insert、配列・グループの移動・リネーム（データ複製なし）、時間ベースのブランチ・マージが可能。Xarray、Dask統合によりクラウドベース地理空間分析とMLをサポート
+- **[Scalable Remote Sensing Workflows with Xarray Workshop](https://talks.osgeo.org/foss4g-2025/talk/RBEXYV/)** ([FOSS4G 2025](https://talks.osgeo.org/foss4g-2025/talk/RBEXYV/)): XarrayとDaskを活用した地理空間分析
+- **[Forest Carbon Monitoring: A New Era of Real-Time Insights](https://talks.osgeo.org/foss4g-2024/talk/QQCKYW/)** ([FOSS4G 2024](https://talks.osgeo.org/foss4g-2024/talk/QQCKYW/)): ZarrとIcechunkで高次元データキューブを構築、時間・空間ドメインでの高速スライス処理。GeoTIFF群からarray-basedモデルへの移行
 
 **GeoParquet（4件、全て2025年）**
-- **pydggsapi統合**: DGGSインデックス付きParquetファイルをOGC DGGS API経由で提供、ClickHouseデータベース連携で高速分析クエリ
-- **ベクタフォーマット比較ワークショップ**: GeoJSON、WKT/WKB、GeoParquetの詳細比較。Parquetデータストレージの仕組み、ジオメトリマッピング、部分データ読み取り実装を解説。FlatGeoBufとの比較（"より"クラウドネイティブ？）
-- **Lonboard**: deck.gl（GPU加速レンダリング）、GeoArrow（効率的メモリ表現）、GeoParquet（ブラウザへの最適化転送）、anywidget（Jupyter統合）の4技術スタック
-- **ニュージーランド国勢調査アプリ**: Python、Dash、Leaflet、GeoParquetによるWebアプリケーション。NZ Census 2023と建物アウトラインのオープンデータで任意地理範囲の人口推計
+- **[Exploring Cloud-Native Geospatial Formats: Hands-on with Vector Data Workshop](https://talks.osgeo.org/foss4g-2025/talk/MHHJE7/)** ([FOSS4G 2025](https://talks.osgeo.org/foss4g-2025/talk/MHHJE7/)): GeoJSON、WKT/WKB、GeoParquetの詳細比較。Parquetデータストレージの仕組み、ジオメトリマッピング、部分データ読み取り実装を解説
+- **[Visualizing Overture Maps Data with Lonboard in a Jupyter Notebook](https://talks.osgeo.org/foss4g-2024/talk/GM9HZN/)** ([FOSS4G 2024](https://talks.osgeo.org/foss4g-2024/talk/GM9HZN/)): deck.gl（GPU加速レンダリング）、GeoArrow（効率的メモリ表現）、GeoParquet（ブラウザへの最適化転送）、anywidget（Jupyter統合）の4技術スタック
+- **[Adding GeoParquet to a Spatial Data Infrastructure: What, Why and How](https://talks.osgeo.org/foss4g-2024/talk/8RGNHX/)** ([FOSS4G 2024](https://talks.osgeo.org/foss4g-2024/talk/8RGNHX/)): DGGSインデックス付きParquetファイルをOGC DGGS API経由で提供、ClickHouseデータベース連携で高速分析クエリ
 
 **PMTiles（8件、+300%成長）**
-- ベクタータイルの新標準として台頭
-- サーバーレス配信による運用コスト削減
-- 静的ファイルホスティングでの大規模地図配信
+- **[Serverless Planet-scale Geospatial with Protomaps and PMTiles](https://talks.osgeo.org/foss4g-2023/talk/JKBHTM/)** ([FOSS4G 2023](https://talks.osgeo.org/foss4g-2023/talk/JKBHTM/)): ベクタータイルの新標準として台頭、サーバーレス配信による運用コスト削減、静的ファイルホスティングでの大規模地図配信
+- **[Shortbread - the new OpenStreetMap vector tile schema](https://talks.osgeo.org/foss4g-2024/talk/9LCAJL/)** ([FOSS4G 2024](https://talks.osgeo.org/foss4g-2024/talk/9LCAJL/)): PMTilesベースの新しいベクタータイルスキーマ
 
 **COG（23件、安定利用）**
-- **仕組みの理解**: 画像ライブラリなしでPythonのみによる手作業COG読み取りワークショップ。クラウドソースから段階的にデータ取得、ターゲットタイルを抽出
-- **GPU加速**: Rust実装（`async-tiff`、`object_store`クレート）、nvCOMP・nvTIFFによるCUDAデバイスメモリへの直接デコード、GDALの3倍高速
-- **洪水モデルデジタルツイン**: 複数コンテナ（バックエンド、フロントエンド、DB）、AWS ECS上で処理ノードを需要に応じて拡張
+- **[Accelerating GeoTIFF readers with Rust](https://talks.osgeo.org/foss4g-2025/talk/MRPVGL/)** ([FOSS4G 2025](https://talks.osgeo.org/foss4g-2025/talk/MRPVGL/)): Rust実装（`async-tiff`、`object_store`クレート）、nvCOMP・nvTIFFによるCUDAデバイスメモリへの直接デコード、GDALの3倍高速
+- **[Earth-Search: A STAC API of Open datasets on AWS](https://talks.osgeo.org/foss4g-2024/talk/XHJYEA/)** ([FOSS4G 2024](https://talks.osgeo.org/foss4g-2024/talk/XHJYEA/)): COGによるクラウドネイティブラスタデータの配信と処理
 
 **クラウドインフラ活用例**
 
@@ -457,7 +459,7 @@
 
 ### 生成ファイル
 
-- `gis_society_analysis.json` - 詳細分析データ
+- `presentations_data.json` - プレゼンテーションデータ（984発表、学術トラック除外）
 - `tech_trends_50words.json` - **年次技術トレンドデータ（50ワード基準、主要トピックのみ）**
 - `tech_trends_accurate.json` - 年次技術トレンドデータ（旧50文字基準）
 - `counting_criteria_comparison.json` - カウント基準比較データ（50文字 vs 50ワード vs 100ワード）
